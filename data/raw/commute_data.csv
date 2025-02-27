@@ -1,0 +1,8 @@
+address,commute_time_text,commute_time_seconds,distance_text,distance_value,mode
+"236 Rideau St, Sandy Hill, Ottawa, ON K1Y 9V4",9 mins,540,4 km,4000,driving
+"677 Bank St, Barrhaven, Ottawa, ON K1R 8Z7",31 mins,1860,14 km,14000,driving
+"384 Laurier St, Orleans, Ottawa, ON K1R 4U3",33 mins,1980,10 km,10000,driving
+"970 Laurier St, Hintonburg, Ottawa, ON K1Z 7F1",20 mins,1200,22 km,22000,driving
+"1346 O'Connor St, Sandy Hill, Ottawa, ON K1V 9B6",15 mins,900,9 km,9000,driving
+"804 Laurier St, Rockcliffe Park, Ottawa, ON K1V 6L0",31 mins,1860,10 km,10000,driving
+"1589 Wellington St, Sandy Hill, Ottawa, ON K1V 2L9",9 mins,540,8 km,8000,driving

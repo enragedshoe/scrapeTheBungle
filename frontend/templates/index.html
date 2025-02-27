@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Real Estate Comparison Tool</title>
+    <!-- 
+        Note: You need to enable "Places API" and "Maps JavaScript API" in your Google Cloud Console 
+        for the same API key. The key only has Distance Matrix API enabled currently.
+    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+
+        input,
+        select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Real Estate Comparison Tool</h1>
+    <p>Search for properties and compare them by price, commute time, and crime rates</p>
+
+    <form action="/results" method="post">
+        <div class="form-group">
+            <label for="search_location">Search Location:</label>
+            <input type="text" name="search_location" id="search_location"
+                placeholder="City, neighborhood, or postal code" value="Ottawa, ON" autocomplete="off" />
+            <!-- Added autocomplete="off" to prevent browser autocomplete interfering with Google Places -->
+        </div>
+
+        <div class="form-group">
+            <label for="search_radius">Search Radius (km):</label>
+            <select name="search_radius" id="search_radius">
+                <option value="5">5 km</option>
+                <option value="10" selected>10 km</option>
+                <option value="25">25 km</option>
+                <option value="50">50 km</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="max_listings">Max Listings:</label>
+            <input type="number" name="max_listings" id="max_listings" min="10" max="200" value="50" />
+        </div>
+
+        <div class="form-group">
+            <label for="price_min">Min Price ($):</label>
+            <input type="number" name="price_min" id="price_min" placeholder="e.g. 300000" step="50000" value="0" />
+        </div>
+
+        <div class="form-group">
+            <label for="price_max">Max Price ($):</label>
+            <input type="number" name="price_max" id="price_max" placeholder="e.g. 800000" step="50000"
+                value="1000000" />
+        </div>
+
+        <div class="form-group">
+            <label for="bedrooms">Bedrooms:</label>
+            <select name="bedrooms" id="bedrooms">
+                <option value="any">Any</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3" selected>3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="bathrooms">Bathrooms:</label>
+            <select name="bathrooms" id="bathrooms">
+                <option value="any">Any</option>
+                <option value="1">1+</option>
+                <option value="2" selected>2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="commute_destination">Commute To:</label>
+            <input type="text" name="commute_destination" id="commute_destination" placeholder="Work/School Address"
+                value="Ottawa, ON, Canada" autocomplete="off" />
+            <!-- Added autocomplete="off" to prevent browser autocomplete interfering with Google Places -->
+        </div>
+
+        <div class="form-group">
+            <label for="commute_mode">Travel Mode:</label>
+            <select name="commute_mode" id="commute_mode">
+                <option value="driving" selected>Driving</option>
+                <option value="transit">Public Transit</option>
+                <option value="walking">Walking</option>
+                <option value="bicycling">Bicycling</option>
+            </select>
+        </div>
+
+        <button type="submit">Search Properties</button>
+    </form>
+
+    <script>
+        // Address autocomplete using Google Places API
+        function initAutocomplete() {
+            // Add autocomplete to search location
+            let searchLocationInput = document.getElementById('search_location');
+            new google.maps.places.Autocomplete(searchLocationInput, {
+                types: ['geocode'],
+                componentRestrictions: { country: 'ca' }
+            });
+
+            // Add autocomplete to commute destination
+            let commuteInput = document.getElementById('commute_destination');
+            new google.maps.places.Autocomplete(commuteInput, {
+                types: ['address'],
+                componentRestrictions: { country: 'ca' }
+            });
+        }
+
+        // Initialize on window load
+        window.onload = initAutocomplete;
+    </script>
+</body>
+
+</html>
